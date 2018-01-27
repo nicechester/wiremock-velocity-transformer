@@ -1,6 +1,6 @@
 {
     "request": {
-        "urlPattern": "/resource",
+        "urlPathPattern": "/resource",
         "method": "GET"
     },
     "response": {
@@ -8,6 +8,9 @@
         "bodyFileName": "response-test-body.vm",
         "headers": {
             "Content-Type": "application/json"
-        }
+        },
+		"transformerParameters": {
+			"query": "startDate,endDate,product-code"
+		}
     }
 }

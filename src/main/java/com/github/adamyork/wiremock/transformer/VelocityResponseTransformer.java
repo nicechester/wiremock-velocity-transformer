@@ -1,14 +1,18 @@
 package com.github.adamyork.wiremock.transformer;
 
 import java.io.StringWriter;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.github.tomakehurst.wiremock.http.QueryParameter;
 import org.apache.velocity.Template;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.ToolManager;
+import org.apache.velocity.tools.generic.DateTool;
+import org.apache.velocity.tools.generic.NumberTool;
 
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.common.FileSource;
@@ -57,6 +61,16 @@ public class VelocityResponseTransformer extends ResponseDefinitionTransformer {
                       context.put("requestAbsoluteUrl", request.getAbsoluteUrl());
                       context.put("requestUrl", request.getUrl());
                       context.put("requestMethod", request.getMethod());
+					  context.put("numberTool", new NumberTool());
+					  if (Objects.nonNull(parameters) && parameters.containsKey("query")) {
+					      String[] queryKeys = parameters.getString("query").split(",");
+                          for (String queryKey: queryKeys) {
+                              QueryParameter value = request.queryParameter(queryKey);
+                              if (value.isPresent()) {
+                                  context.put("query-" + queryKey, value.values());
+                              }
+                          }
+                      }
                       final String body = getRenderedBody(responseDefinition);
                       return ResponseDefinitionBuilder.like(responseDefinition).but()
                               .withBody(body)
