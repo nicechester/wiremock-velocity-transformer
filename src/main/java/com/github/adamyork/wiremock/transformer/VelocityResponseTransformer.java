@@ -61,8 +61,7 @@ public class VelocityResponseTransformer extends ResponseDefinitionTransformer {
                       context.put("requestAbsoluteUrl", request.getAbsoluteUrl());
                       context.put("requestUrl", request.getUrl());
                       context.put("requestMethod", request.getMethod());
-					  context.put("numberTool", new NumberTool());
-					  if (Objects.nonNull(parameters) && parameters.containsKey("query")) {
+					  if (null != parameters && parameters.containsKey("query")) {
 					      String[] queryKeys = parameters.getString("query").split(",");
                           for (String queryKey: queryKeys) {
                               QueryParameter value = request.queryParameter(queryKey);
