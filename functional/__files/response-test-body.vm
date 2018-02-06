@@ -8,7 +8,7 @@
     "requestHeaderAcceptLanguage" : "$requestHeaderAcceptLanguage",
     "requestHeaderAcceptEncoding" : "$requestHeaderAcceptEncoding",
     "requestHeaderConnection" : "$requestHeaderConnection",
-    "date" : "$date",
+    "date" : "$date.get('yyyy-MM')",
     "math": "$math.round(22.2)",
     #if($requestAbsoluteUrl == 'http://localhost:8089/my/resource')
 "customProp" : "customValue",
@@ -16,6 +16,27 @@
     #else
 "customProp" : "customValue",
     #end
-    "date" : "$date.getMonth()",
-    "math" : "$math.floor(2.5)"
+    "month" : "$date.get('M')",
+    "math" : "$math.floor(2.5)",
+    "startDate": "$query-startDate[0]",
+    "endDate": "$query-endDate[0]",
+#set($endDate = $date.toDate('yyyy-MM-dd', $query-endDate[0]))
+    "day": "$date.format('yyyy-MM', $endDate)",
+#set($x = $date.toCalendar($endDate))
+$x.add(10, 24)
+    "day2": "$x.getTime()",
+#set($numDays = 3)
+#set($numHours = $numDays * 24)
+$x.add(10, $numHours)
+    "day3": "$x.getTime()",
+#foreach($productCode in $query-product-code)
+    "productCode${foreach.count}": "$productCode",
+
+#end
+#set($myRange = $dateRange.of($query-startDate[0], $query-endDate[0]))
+    "dateRanges" : [
+#foreach($cur in $myRange)
+    "$cur" #if($foreach.count != $myRange.size()),#end
+#end
+    ]
 }
