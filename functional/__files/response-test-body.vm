@@ -30,7 +30,13 @@ $x.add(10, 24)
 $x.add(10, $numHours)
     "day3": "$x.getTime()",
 #foreach($productCode in $query-product-code)
-    "productCode${foreach.count}": "$productCode"#if($foreach.count != $query-product-code.size()),#end
+    "productCode${foreach.count}": "$productCode",
 
 #end
+#set($myRange = $dateRange.of($query-startDate[0], $query-endDate[0]))
+    "dateRanges" : [
+#foreach($cur in $myRange)
+    "$cur" #if($foreach.count != $myRange.size()),#end
+#end
+    ]
 }

@@ -11,6 +11,7 @@ import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.ToolManager;
+import org.apache.velocity.tools.generic.DateRangeTool;
 import org.apache.velocity.tools.generic.DateTool;
 import org.apache.velocity.tools.generic.NumberTool;
 
@@ -61,6 +62,7 @@ public class VelocityResponseTransformer extends ResponseDefinitionTransformer {
             context.put("requestAbsoluteUrl", request.getAbsoluteUrl());
             context.put("requestUrl", request.getUrl());
             context.put("requestMethod", request.getMethod());
+            context.put("dateRange", new DateRangeTool());
             if (null != parameters && parameters.containsKey("query")) {
                 String[] queryKeys = parameters.getString("query").split(",");
                 for (String queryKey : queryKeys) {
