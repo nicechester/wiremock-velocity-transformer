@@ -18,6 +18,8 @@
     #end
     "month" : "$date.get('M')",
     "math" : "$math.floor(2.5)",
+    "requestUrl" : "$requestUrl",
+    "paths" : "$requestPath[0]",
     "startDate": "$query-startDate[0]",
     "endDate": "$query-endDate[0]",
 #set($endDate = $date.toDate('yyyy-MM-dd', $query-endDate[0]))

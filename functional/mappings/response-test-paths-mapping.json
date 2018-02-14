@@ -1,0 +1,13 @@
+{
+    "request": {
+        "urlPathPattern": "/resource/.+",
+        "method": "GET"
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "response-test-path.vm",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

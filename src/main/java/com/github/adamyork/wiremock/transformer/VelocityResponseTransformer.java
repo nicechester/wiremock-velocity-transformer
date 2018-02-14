@@ -1,6 +1,8 @@
 package com.github.adamyork.wiremock.transformer;
 
 import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -63,6 +65,7 @@ public class VelocityResponseTransformer extends ResponseDefinitionTransformer {
             context.put("requestUrl", request.getUrl());
             context.put("requestMethod", request.getMethod());
             context.put("dateRange", new DateRangeTool());
+            context.put("requestPath", request.getUrl().split("/"));
             if (null != parameters && parameters.containsKey("query")) {
                 String[] queryKeys = parameters.getString("query").split(",");
                 for (String queryKey : queryKeys) {
