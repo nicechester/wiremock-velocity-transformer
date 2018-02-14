@@ -18,6 +18,8 @@
     #end
     "month" : "$date.get('M')",
     "math" : "$math.floor(2.5)",
+    "requestUrl" : "$requestUrl",
+    "paths" : "$requestPath[0]",
     "startDate": "$query-startDate[0]",
     "endDate": "$query-endDate[0]",
 #set($endDate = $date.toDate('yyyy-MM-dd', $query-endDate[0]))
@@ -33,10 +35,9 @@ $x.add(10, $numHours)
     "productCode${foreach.count}": "$productCode",
 
 #end
-#set($myRange = $dateRange.of($query-startDate[0], $query-endDate[0]))
     "dateRanges" : [
-#foreach($cur in $myRange)
-    "$cur" #if($foreach.count != $myRange.size()),#end
+#foreach($cur in $dateRange.of($query-startDate[0], $query-endDate[0]))
+    "$cur" #if( $foreach.hasNext ),#end
 #end
     ]
 }

@@ -1,0 +1,9 @@
+{
+    "absoluteUri" : "$requestAbsoluteUrl",
+    "uri" : "$requestUrl",
+    "paths" : "$requestPath",
+#foreach($path in $requestPath)
+    "path${foreach.count}" : "$path"#if( $foreach.hasNext ),#end
+#end
+
+}
