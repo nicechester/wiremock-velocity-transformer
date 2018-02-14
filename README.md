@@ -1,5 +1,7 @@
-wiremock-velocity-transformer
-===========================
+wiremock-velocity-transformer (forked by Chester)
+=============================================
+
+## To see my extension to original implementation, see https://github.com/nicechester/wiremock-velocity-transformer/wiki
 
 transformer used to render velocity templates for stubbed responses.
 
